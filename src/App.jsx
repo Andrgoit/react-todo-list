@@ -1,19 +1,31 @@
+import { lazy, Suspense } from "react";
+import { Routes, Route } from "react-router";
 import "./index.css";
-import github from "src/assets/github.svg";
+
+const LoginPage = lazy(() => import("@/pages/LoginPage/LoginPage"));
+const DashboardPage = lazy(() => import("@/pages/DashboardPage/DashboardPage"));
+const Layout = lazy(() => import("@/components/Layout/Layout"));
+const PrivateRoute = lazy(
+  () => import("@/components/PrivateRoute/PrivateRoute.jsx"),
+);
+const PublicRoute = lazy(
+  () => import("@/components/PublicRoute/PublicRoute.jsx"),
+);
 
 function App() {
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-center gap-5 bg-gradient-to-br from-[#1CB5E0] to-[#000851]">
-      <h1
-        className="text-4xl font-bold text-white"
-        style={{ textShadow: "2px 2px 4px black" }}
-      >
-        Vite + React + Tailwind
-      </h1>
-      <a href="https://github.com/Andrgoit/react-template" target="_blank">
-        <img src={github} alt="github icon" />
-      </a>
-    </div>
+    <Suspense fallback="...loading">
+      <Routes>
+        <Route element={<PublicRoute />}>
+          <Route path="/" element={<LoginPage />} />
+        </Route>
+        <Route element={<PrivateRoute />}>
+          <Route path="/dashboard" element={<Layout />}>
+            <Route index element={<DashboardPage />} />
+          </Route>
+        </Route>
+      </Routes>
+    </Suspense>
   );
 }
 

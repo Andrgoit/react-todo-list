@@ -1,0 +1,18 @@
+{
+  "user": {
+    "user_id": "1",
+    "name": "Andrey",
+    "email": "test@mail.com",
+    "password": "123456",
+    "todo_list": [
+      {
+        "todo_id": "",
+        "todo_title": "",
+        "todo_text": "",
+        "completed": false,
+        "todo_startDate": "",
+        "todo_endDate": ""
+      }
+    ]
+  }
+}
