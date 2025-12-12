@@ -1,31 +1,50 @@
-import { lazy, Suspense } from "react";
-import { Routes, Route } from "react-router";
+import { useState } from "react";
+import { Footer, Header, AddTodoBtn, TodoList } from "./components";
 import "./index.css";
 
-const LoginPage = lazy(() => import("@/pages/LoginPage/LoginPage"));
-const DashboardPage = lazy(() => import("@/pages/DashboardPage/DashboardPage"));
-const Layout = lazy(() => import("@/components/Layout/Layout"));
-const PrivateRoute = lazy(
-  () => import("@/components/PrivateRoute/PrivateRoute.jsx"),
-);
-const PublicRoute = lazy(
-  () => import("@/components/PublicRoute/PublicRoute.jsx"),
-);
-
 function App() {
+  const [todos, setTodos] = useState([]);
+
+  const AddTodo = (todo) => {
+    setTodos([...todos, todo]);
+  };
+
+  const ChangeTodo = (newTodo) => {
+    setTodos((prev) =>
+      prev.map((todo) => (todo.id === newTodo.id ? newTodo : todo)),
+    );
+  };
+
+  const DeleteTodo = (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
+  const CompletedTodo = (id) => {
+    setTodos((prev) =>
+      prev.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, completed: true };
+        }
+      }),
+    );
+  };
+
   return (
-    <Suspense fallback="...loading">
-      <Routes>
-        <Route element={<PublicRoute />}>
-          <Route path="/" element={<LoginPage />} />
-        </Route>
-        <Route element={<PrivateRoute />}>
-          <Route path="/dashboard" element={<Layout />}>
-            <Route index element={<DashboardPage />} />
-          </Route>
-        </Route>
-      </Routes>
-    </Suspense>
+    <>
+      <Header />
+      <main>
+        <div className="container">
+          <AddTodoBtn AddTodo={AddTodo} />
+        </div>
+        <TodoList
+          todos={todos}
+          ChangeTodo={ChangeTodo}
+          DeleteTodo={DeleteTodo}
+          CompletedTodo={CompletedTodo}
+        />
+      </main>
+      <Footer />
+    </>
   );
 }
 
