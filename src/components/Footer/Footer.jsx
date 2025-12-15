@@ -1,11 +1,12 @@
 import github from "@/assets/github.svg";
+import styles from "@/components/Footer/Footer.module.css";
 
 export default function Footer() {
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-5 bg-gradient-to-br from-[#1CB5E0] to-[#000851]">
+    <footer className={styles.footer}>
       <a href="https://github.com/Andrgoit/react-todo-list" target="_blank">
-        <img src={github} alt="github icon" className="mb-3 mt-3 h-6 w-6" />
+        <img src={github} alt="github icon" className={styles.footerIcon} />
       </a>
-    </div>
+    </footer>
   );
 }
