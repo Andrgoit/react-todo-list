@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Footer, Header, AddTodoBtn, TodoList } from "./components";
+import { Footer, Header, AddTodoBtn, TodoList } from "@/components";
 import "./index.css";
 
 function App() {
@@ -21,11 +21,9 @@ function App() {
 
   const CompletedTodo = (id) => {
     setTodos((prev) =>
-      prev.map((todo) => {
-        if (todo.id === id) {
-          return { ...todo, completed: true };
-        }
-      }),
+      prev.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo,
+      ),
     );
   };
 
@@ -33,15 +31,18 @@ function App() {
     <>
       <Header />
       <main>
-        <div className="container">
-          <AddTodoBtn AddTodo={AddTodo} />
+        <div className="container flex flex-1 flex-col items-center">
+          <div className="mb-3 mt-3 flex justify-center">
+            <AddTodoBtn AddTodo={AddTodo} />
+          </div>
+
+          <TodoList
+            todos={todos}
+            ChangeTodo={ChangeTodo}
+            DeleteTodo={DeleteTodo}
+            CompletedTodo={CompletedTodo}
+          />
         </div>
-        <TodoList
-          todos={todos}
-          ChangeTodo={ChangeTodo}
-          DeleteTodo={DeleteTodo}
-          CompletedTodo={CompletedTodo}
-        />
       </main>
       <Footer />
     </>
