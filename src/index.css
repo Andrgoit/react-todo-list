@@ -14,17 +14,12 @@
   flex-direction: column;
   min-height: 100vh;
 }
-.header {
-  box-shadow:
-    8px 8px 7px #a6a6a6,
-    -8px -8px 7px #ffffff;
-}
 
 main {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  background-color: white;
+  background-color: #030712;
 }
 
 .container {

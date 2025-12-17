@@ -5,16 +5,16 @@
   display: flex;
   align-items: center;
 
-  background-color: white;
+  background-color: #f2b258;
   border: 1px solid #2c2c2c2c;
 
-  box-shadow:
+  /* box-shadow:
     6px 6px 12px #bebebe,
     -6px -6px 12px #ffffff;
 
   box-shadow:
     inset 6px 6px 12px #bebebe,
-    inset -6px -6px 12px #ffffff;
+    inset -6px -6px 12px #ffffff; */
 }
 
 .itemIndicator {
@@ -37,6 +37,7 @@
 
 .itemTitile {
   font-weight: bold;
+  font-size: 18px;
 }
 
 .itemMessage {
@@ -44,6 +45,8 @@
   text-overflow: ellipsis;
   white-space: normal;
   overflow: hidden;
+  color: #727272;
+  font-style: italic;
 }
 
 .itemButtonsWrapper {
@@ -61,9 +64,7 @@
   justify-content: center;
   align-items: center;
   color: #ffffff;
-  box-shadow:
-    3px 3px 5px #727272,
-    -3px -3px 5px #ffffff;
+  box-shadow: 3px 3px 5px #727272;
 }
 .editButton {
   composes: itemButton;
@@ -104,10 +105,12 @@
 }
 
 .formWrapper {
-  background-color: #ffffff;
+  background-color: #bebebe;
   border-radius: 18px;
   padding: 10px;
   min-width: 300px;
+  width: 100%;
+  max-width: 450px;
 }
 .form {
   display: flex;

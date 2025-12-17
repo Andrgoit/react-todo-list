@@ -30,7 +30,7 @@ function App() {
   return (
     <>
       <Header />
-      <main>
+      <main className="bg-[#030712]">
         <div className="container flex flex-1 flex-col items-center">
           <div className="mb-3 mt-3 flex justify-center">
             <AddTodoBtn AddTodo={AddTodo} />

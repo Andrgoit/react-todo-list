@@ -7,6 +7,8 @@ export default function TodoList({
   DeleteTodo,
   CompletedTodo,
 }) {
+  console.log("todos", todos);
+
   const elements = todos.map((todo) => (
     <TodoItem
       key={todo.id}

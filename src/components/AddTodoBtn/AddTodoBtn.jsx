@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { Modal } from "@/components";
 
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+import "@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css";
+import "react-calendar/dist/Calendar.css";
+
 import styles from "@/components/AddTodoBtn/AddTodoBtn.module.css";
 
 export default function AddTodoBtn({ AddTodo }) {
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const [value, onChange] = useState([new Date(), new Date()]);
 
   const isDesabledButton =
     title.trim() !== "" && text.length <= 100 && text.length > 0;
@@ -17,12 +22,13 @@ export default function AddTodoBtn({ AddTodo }) {
   const ResetForm = () => {
     setTitle("");
     setText("");
+    onChange([new Date(), new Date()]);
   };
 
   const HandlerSubmit = (e) => {
     const id = new Date().getTime();
     e.preventDefault();
-    AddTodo({ id, title, text, completed: false });
+    AddTodo({ id, title, text, completed: false, value });
     ResetForm();
     CloseModal();
   };
@@ -52,6 +58,11 @@ export default function AddTodoBtn({ AddTodo }) {
                 onChange={(e) => setText(e.target.value)}
                 className={styles.formTextarea}
               />
+              <div>
+                <span>Chose start and end dates:</span>
+
+                <DateRangePicker onChange={onChange} value={value} />
+              </div>
               <span
                 className={
                   text.length <= 100
