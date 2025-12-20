@@ -2,7 +2,7 @@ import { TodoItem } from "@/components";
 import styles from "@/components/TodoList/TodoList.module.css";
 
 export default function TodoList({
-  todos,
+  todos = [],
   UpdateTodo,
   DeleteTodo,
   CompletedTodo,

@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "server": "json-server -w db.json -p 4000 ",
+    "sh": "json-server --help"
+  },
+  "dependencies": {
+    "json-server": "^1.0.0-beta.3"
+  }
+}

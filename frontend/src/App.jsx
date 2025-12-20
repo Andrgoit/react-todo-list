@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Footer, Header, AddTodoBtn, TodoList } from "@/components";
 import "./index.css";
 
+import { ToastContainer, Bounce, toast } from "react-toastify";
+
 import getTodos from "@/api/getTodos";
 import addTodo from "@/api/addTodo";
 import deleteTodo from "@/api/deleteTodo";
@@ -16,6 +18,7 @@ function App() {
         const data = await getTodos();
         setTodos(data);
       } catch (error) {
+        toast.error(`${error.message}`);
         console.error("Error fetching todos:", error);
       }
     };
@@ -27,6 +30,7 @@ function App() {
       const response = await addTodo(todo);
       setTodos((prev) => [...prev, response]);
     } catch (error) {
+      toast.error(`${error.message}`);
       console.error("Error adding todo:", error);
     }
   };
@@ -38,6 +42,7 @@ function App() {
         prev.map((todo) => (todo.id === response.id ? response : todo)),
       );
     } catch (error) {
+      toast.error(`${error.message}`);
       console.error("Error changing todo:", error);
     }
   };
@@ -47,6 +52,7 @@ function App() {
       const response = await deleteTodo(id);
       setTodos((prev) => prev.filter((todo) => todo.id !== response.id));
     } catch (error) {
+      toast.error(`${error.message}`);
       console.error("Error deleting todo:", error);
     }
   };
@@ -61,6 +67,19 @@ function App() {
 
   return (
     <>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        transition={Bounce}
+      />
       <Header />
       <main className="bg-[#030712]">
         <div className="container flex flex-1 flex-col items-center">

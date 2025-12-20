@@ -1,0 +1,14 @@
+{
+  "todos": [
+    {
+      "id": "1766241362750",
+      "title": "example",
+      "text": "text example",
+      "completed": false,
+      "dates": [
+        "2025-12-20T14:34:20.123Z",
+        "2025-12-20T14:34:20.123Z"
+      ]
+    }
+  ]
+}
