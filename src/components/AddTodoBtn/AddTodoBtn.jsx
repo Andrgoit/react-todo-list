@@ -11,31 +11,37 @@ export default function AddTodoBtn({ AddTodo }) {
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
-  const [value, onChange] = useState([new Date(), new Date()]);
+  const [dates, setDates] = useState([new Date(), new Date()]);
+
+  const startDate = dates ? dates[0].toLocaleDateString() : "";
+  const endDate = dates ? dates[1].toLocaleDateString() : "";
 
   const isDesabledButton =
     title.trim() !== "" && text.length <= 100 && text.length > 0;
 
   const CloseModal = () => {
-    setIsOpen(!isOpen);
+    setIsOpen(false);
+  };
+  const OpenModal = () => {
+    setIsOpen(true);
   };
   const ResetForm = () => {
     setTitle("");
     setText("");
-    onChange([new Date(), new Date()]);
+    setDates([new Date(), new Date()]);
   };
 
   const HandlerSubmit = (e) => {
-    const id = new Date().getTime();
+    const id = new Date().getTime().toString();
     e.preventDefault();
-    AddTodo({ id, title, text, completed: false, value });
-    ResetForm();
     CloseModal();
+    ResetForm();
+    AddTodo({ id, title, text, completed: false, dates });
   };
 
   return (
     <div className={styles.buttonWrapper}>
-      <button onClick={CloseModal} className={styles.button}>
+      <button onClick={OpenModal} className={styles.button}>
         Add task
       </button>
       {isOpen && (
@@ -60,8 +66,21 @@ export default function AddTodoBtn({ AddTodo }) {
               />
               <div>
                 <span>Chose start and end dates:</span>
-
-                <DateRangePicker onChange={onChange} value={value} />
+                <DateRangePicker
+                  onChange={setDates}
+                  value={dates}
+                  format="dd.MM.yyyy"
+                />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold">Start date:</p>
+                  {dates && <span>{startDate}</span>}
+                </div>
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold">End date:</p>
+                  {dates && <span>{endDate}</span>}
+                </div>
               </div>
               <span
                 className={

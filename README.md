@@ -1,13 +1,10 @@
-# React + Vite + Tailwind
+# REACT TODO LIST + JSON-SERVER
 
-Минимальная настройка:
+- приложение на http://localhost:3000/
+- сервер на http://localhost:4000/
 
-- установлен Tailwind
-- сортировка классов при помощи `prettier-plugin-tailwindcss`
-- сервер перенастроен на http://localhost:3000/
-- алиас настроен на src/
-- импорт svg-картинок:
+## Чтобы избежать мерцаний приложения необходимо запустить JSON-SERVER в отдельном окне (терминале)
 
-  `import star from "src/assets/icons/star.svg";` - как картинка
-
-  `import Star from "src/assets/icons/star.svg?react";` - как компонент
+![](public/demo1.JPG)
+![](public/demo2.JPG)
+![](public/demo3.JPG)

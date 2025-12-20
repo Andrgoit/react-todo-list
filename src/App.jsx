@@ -1,22 +1,54 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Footer, Header, AddTodoBtn, TodoList } from "@/components";
 import "./index.css";
+
+import getTodos from "@/api/getTodos";
+import addTodo from "@/api/addTodo";
+import deleteTodo from "@/api/deleteTodo";
+import updateTodo from "@/api/updateTodo";
 
 function App() {
   const [todos, setTodos] = useState([]);
 
-  const AddTodo = (todo) => {
-    setTodos([...todos, todo]);
+  useEffect(() => {
+    const fetchingTodos = async () => {
+      try {
+        const data = await getTodos();
+        setTodos(data);
+      } catch (error) {
+        console.error("Error fetching todos:", error);
+      }
+    };
+    fetchingTodos();
+  }, []);
+
+  const AddTodo = async (todo) => {
+    try {
+      const response = await addTodo(todo);
+      setTodos((prev) => [...prev, response]);
+    } catch (error) {
+      console.error("Error adding todo:", error);
+    }
   };
 
-  const ChangeTodo = (newTodo) => {
-    setTodos((prev) =>
-      prev.map((todo) => (todo.id === newTodo.id ? newTodo : todo)),
-    );
+  const UpdateTodo = async (id, newTodo) => {
+    try {
+      const response = await updateTodo(id, newTodo);
+      setTodos((prev) =>
+        prev.map((todo) => (todo.id === response.id ? response : todo)),
+      );
+    } catch (error) {
+      console.error("Error changing todo:", error);
+    }
   };
 
-  const DeleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+  const DeleteTodo = async (id) => {
+    try {
+      const response = await deleteTodo(id);
+      setTodos((prev) => prev.filter((todo) => todo.id !== response.id));
+    } catch (error) {
+      console.error("Error deleting todo:", error);
+    }
   };
 
   const CompletedTodo = (id) => {
@@ -35,10 +67,9 @@ function App() {
           <div className="mb-3 mt-3 flex justify-center">
             <AddTodoBtn AddTodo={AddTodo} />
           </div>
-
           <TodoList
             todos={todos}
-            ChangeTodo={ChangeTodo}
+            UpdateTodo={UpdateTodo}
             DeleteTodo={DeleteTodo}
             CompletedTodo={CompletedTodo}
           />

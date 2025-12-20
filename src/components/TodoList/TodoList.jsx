@@ -3,17 +3,15 @@ import styles from "@/components/TodoList/TodoList.module.css";
 
 export default function TodoList({
   todos,
-  ChangeTodo,
+  UpdateTodo,
   DeleteTodo,
   CompletedTodo,
 }) {
-  console.log("todos", todos);
-
   const elements = todos.map((todo) => (
     <TodoItem
       key={todo.id}
       todo={todo}
-      ChangeTodo={ChangeTodo}
+      UpdateTodo={UpdateTodo}
       DeleteTodo={DeleteTodo}
       CompletedTodo={CompletedTodo}
     />

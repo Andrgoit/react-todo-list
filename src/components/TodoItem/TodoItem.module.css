@@ -89,9 +89,9 @@
   background: #00896f;
   cursor: pointer;
   border-radius: 10px;
-  box-shadow:
+  /* box-shadow:
     8px 8px 7px #a6a6a6,
-    -8px -8px 7px #ffffff;
+    -8px -8px 7px #ffffff; */
 }
 
 .disabledButton {
