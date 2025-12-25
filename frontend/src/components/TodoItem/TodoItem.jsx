@@ -12,13 +12,13 @@ export default function TodoItem({
   todo,
   UpdateTodo,
   DeleteTodo,
-  CompletedTodo,
+  CompleteTodo,
 }) {
   const { id, title, text, completed, dates = [] } = todo;
   const [isOpen, setIsOpen] = useState(false);
-  const [newTitle, setNewTitle] = useState(() => title);
-  const [newText, setNewText] = useState(() => text);
-  const [newCompleted, setNewCompleted] = useState(() => completed);
+  const [newTitle, setNewTitle] = useState(title);
+  const [newText, setNewText] = useState(text);
+  const [newCompleted, setNewCompleted] = useState(completed);
   const [newDates, setNewDates] = useState(dates);
 
   const startDate = dates ? new Date(dates[0]).toLocaleDateString() : "";
@@ -86,7 +86,7 @@ export default function TodoItem({
         </button>
         <button
           className={styles.completedButton}
-          onClick={() => CompletedTodo(id)}
+          onClick={() => CompleteTodo(id)}
           title="Task completed!"
         >
           <FiCheckSquare size={28} />

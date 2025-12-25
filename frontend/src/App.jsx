@@ -8,6 +8,7 @@ import getTodos from "@/api/getTodos";
 import addTodo from "@/api/addTodo";
 import deleteTodo from "@/api/deleteTodo";
 import updateTodo from "@/api/updateTodo";
+import completeTodo from "./api/completeTodo";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -29,6 +30,7 @@ function App() {
     try {
       const response = await addTodo(todo);
       setTodos((prev) => [...prev, response]);
+      toast.success("The task added!");
     } catch (error) {
       toast.error(`${error.message}`);
       console.error("Error adding todo:", error);
@@ -41,6 +43,7 @@ function App() {
       setTodos((prev) =>
         prev.map((todo) => (todo.id === response.id ? response : todo)),
       );
+      toast.info("The task updated!");
     } catch (error) {
       toast.error(`${error.message}`);
       console.error("Error changing todo:", error);
@@ -51,26 +54,32 @@ function App() {
     try {
       const response = await deleteTodo(id);
       setTodos((prev) => prev.filter((todo) => todo.id !== response.id));
+      toast.info("The task deleted!");
     } catch (error) {
       toast.error(`${error.message}`);
       console.error("Error deleting todo:", error);
     }
   };
 
-  const CompletedTodo = (id) => {
-    setTodos((prev) =>
-      prev.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo,
-      ),
-    );
+  const CompleteTodo = async (id) => {
+    try {
+      const response = await completeTodo(id, { completed: true });
+      setTodos((prev) =>
+        prev.map((todo) => (todo.id === id ? response : todo)),
+      );
+      toast.success("Congratulation! The task is completed!");
+    } catch (error) {
+      toast.error(`${error.message}`);
+      console.error("Error completing todo:", error);
+    }
   };
 
   return (
     <>
       <ToastContainer
         position="top-center"
-        autoClose={3000}
-        hideProgressBar={false}
+        autoClose={1000}
+        hideProgressBar
         newestOnTop={false}
         closeOnClick={false}
         rtl={false}
@@ -90,7 +99,7 @@ function App() {
             todos={todos}
             UpdateTodo={UpdateTodo}
             DeleteTodo={DeleteTodo}
-            CompletedTodo={CompletedTodo}
+            CompleteTodo={CompleteTodo}
           />
         </div>
       </main>

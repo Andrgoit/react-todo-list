@@ -5,7 +5,7 @@ export default function TodoList({
   todos = [],
   UpdateTodo,
   DeleteTodo,
-  CompletedTodo,
+  CompleteTodo,
 }) {
   const elements = todos.map((todo) => (
     <TodoItem
@@ -13,7 +13,7 @@ export default function TodoList({
       todo={todo}
       UpdateTodo={UpdateTodo}
       DeleteTodo={DeleteTodo}
-      CompletedTodo={CompletedTodo}
+      CompleteTodo={CompleteTodo}
     />
   ));
 
