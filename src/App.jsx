@@ -1,35 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Footer, Header, AddTodoBtn, TodoList } from "@/components";
 import "./index.css";
 
 import { ToastContainer, Bounce, toast } from "react-toastify";
 
-import getTodos from "@/api/getTodos";
-import addTodo from "@/api/addTodo";
-import deleteTodo from "@/api/deleteTodo";
-import updateTodo from "@/api/updateTodo";
-import completeTodo from "./api/completeTodo";
-
 function App() {
   const [todos, setTodos] = useState([]);
 
-  useEffect(() => {
-    const fetchingTodos = async () => {
-      try {
-        const data = await getTodos();
-        setTodos(data);
-      } catch (error) {
-        toast.error(`${error.message}`);
-        console.error("Error fetching todos:", error);
-      }
-    };
-    fetchingTodos();
-  }, []);
-
   const AddTodo = async (todo) => {
     try {
-      const response = await addTodo(todo);
-      setTodos((prev) => [...prev, response]);
+      setTodos((prev) => [...prev, todo]);
       toast.success("The task added!");
     } catch (error) {
       toast.error(`${error.message}`);
@@ -39,10 +19,7 @@ function App() {
 
   const UpdateTodo = async (id, newTodo) => {
     try {
-      const response = await updateTodo(id, newTodo);
-      setTodos((prev) =>
-        prev.map((todo) => (todo.id === response.id ? response : todo)),
-      );
+      setTodos((prev) => prev.map((todo) => (todo.id === id ? newTodo : todo)));
       toast.info("The task updated!");
     } catch (error) {
       toast.error(`${error.message}`);
@@ -52,8 +29,7 @@ function App() {
 
   const DeleteTodo = async (id) => {
     try {
-      const response = await deleteTodo(id);
-      setTodos((prev) => prev.filter((todo) => todo.id !== response.id));
+      setTodos((prev) => prev.filter((todo) => todo.id !== id));
       toast.info("The task deleted!");
     } catch (error) {
       toast.error(`${error.message}`);
@@ -63,9 +39,10 @@ function App() {
 
   const CompleteTodo = async (id) => {
     try {
-      const response = await completeTodo(id, { completed: true });
       setTodos((prev) =>
-        prev.map((todo) => (todo.id === id ? response : todo)),
+        prev.map((todo) =>
+          todo.id === id ? { ...todo, completed: true } : todo,
+        ),
       );
       toast.success("Congratulation! The task is completed!");
     } catch (error) {
