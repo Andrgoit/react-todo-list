@@ -1,17 +1,15 @@
-# REACT TODO LIST + JSON-SERVER
+# REACT TODO LIST
 
-## Установка:
+В разных ветках репозитория будут применены разные стейт менеджеры: Redux, Zustand
 
-- зайти в папку `frontend` и выполнить команду `npm ci`
-- зайти в папку `json-server-todo` и выполнить команду `npm ci`
+## Установка
 
-## Запуск:
+- выполнить команду `npm ci`
 
-- frontend запускается командой `npm run dev` и работает на http://localhost:3000/
-- сервер запускается командой `npm run server` и работает на http://localhost:4000/
+## Запуск
 
-## !! Чтобы избежать мерцаний приложения необходимо запустить JSON-SERVER в отдельном окне (терминале) !!
+- запускается командой `npm run dev` и работает на <http://localhost:3000/>
 
-![](public/demo1.JPG)
-![](public/demo2.JPG)
-![](public/demo3.JPG)
+![demo1](public/demo1.JPG)
+![demo2](public/demo2.JPG)
+![demo3](public/demo3.JPG)
