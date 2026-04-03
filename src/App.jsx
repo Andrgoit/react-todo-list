@@ -41,7 +41,7 @@ function App() {
     try {
       setTodos((prev) =>
         prev.map((todo) =>
-          todo.id === id ? { ...todo, completed: true } : todo,
+          todo.id === id ? { ...todo, completed: !todo.completed } : todo,
         ),
       );
       toast.success("Congratulation! The task is completed!");
