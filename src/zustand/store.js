@@ -5,8 +5,27 @@ const initialState = { todos: [] };
 
 export const useTodosStore = create((set) => ({
   ...initialState,
-  addTodo: (todo) => set((state) => ({ todos: [...state.todos, todo] })),
-  updateTodo: () => set({ bears: 0 }),
-  deleteTodo: (newBears) => set({ bears: newBears }),
-  completeTodo: (newBears) => set({ bears: newBears }),
+  addTodo: (todo) =>
+    set((state) => {
+      toast.success("The task added!");
+      return { todos: [...state.todos, todo] };
+    }),
+  updateTodo: (id, newTodo) =>
+    set(({ todos }) => {
+      toast.info("The task updated!");
+      return {
+        todos: todos.map((todo) => (todo.id === id ? newTodo : todo)),
+      };
+    }),
+  deleteTodo: (id) =>
+    set(({ todos }) => {
+      toast.info("The task deleted!");
+      return { todos: todos.filter((todo) => todo.id !== id) };
+    }),
+  completeTodo: (id) =>
+    set(({ todos }) => ({
+      todos: todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo,
+      ),
+    })),
 }));

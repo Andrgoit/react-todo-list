@@ -1,19 +1,25 @@
 import { TodoItem } from "@/components";
+import {
+  useTodos,
+  useUpdateTodo,
+  useDeleteTodo,
+  useCompleteTodo,
+} from "@/zustand/selectors";
 import styles from "@/components/TodoList/TodoList.module.css";
 
-export default function TodoList({
-  todos = [],
-  UpdateTodo,
-  DeleteTodo,
-  CompleteTodo,
-}) {
+export default function TodoList() {
+  const todos = useTodos();
+  const updateTodo = useUpdateTodo();
+  const deleteTodo = useDeleteTodo();
+  const completeTodo = useCompleteTodo();
+
   const elements = todos.map((todo) => (
     <TodoItem
       key={todo.id}
       todo={todo}
-      UpdateTodo={UpdateTodo}
-      DeleteTodo={DeleteTodo}
-      CompleteTodo={CompleteTodo}
+      UpdateTodo={updateTodo}
+      DeleteTodo={deleteTodo}
+      CompleteTodo={completeTodo}
     />
   ));
 

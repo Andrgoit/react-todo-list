@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { Modal } from "@/components";
 
+import { useAddTodo } from "@/zustand/selectors";
+
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import "@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css";
 import "react-calendar/dist/Calendar.css";
 
 import styles from "@/components/AddTodoBtn/AddTodoBtn.module.css";
 
-export default function AddTodoBtn({ AddTodo }) {
+export default function AddTodoBtn() {
+  const addTodo = useAddTodo();
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
@@ -36,7 +39,9 @@ export default function AddTodoBtn({ AddTodo }) {
     e.preventDefault();
     CloseModal();
     ResetForm();
-    AddTodo({ id, title, text, completed: false, dates });
+    const newTodo = { id, title, text, completed: false, dates };
+
+    addTodo(newTodo);
   };
 
   return (
