@@ -1,4 +1,4 @@
-# REACT TODO LIST + JSON-SERVER
+# REACT TODO LIST + ZUSTAND + PERSIST
 
 ![](public/demo1.JPG)
 ![](public/demo2.JPG)
