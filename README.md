@@ -1,6 +1,4 @@
-# REACT TODO LIST
-
-В разных ветках репозитория будут применены разные стейт менеджеры: Redux, Zustand
+# REACT TODO LIST + REDUX
 
 ## Установка
 
