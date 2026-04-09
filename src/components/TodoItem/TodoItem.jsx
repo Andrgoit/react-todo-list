@@ -1,4 +1,8 @@
 import { useState } from "react";
+
+import { useDispatch } from "react-redux";
+import { deleteTodo, updateTodo, completeTodo } from "@/redux/todosSlice";
+
 import { Modal } from "@/components";
 import { FiEdit, FiTrash, FiCheckSquare } from "react-icons/fi";
 
@@ -8,12 +12,8 @@ import "react-calendar/dist/Calendar.css";
 
 import styles from "@/components/TodoItem/TodoItem.module.css";
 
-export default function TodoItem({
-  todo,
-  UpdateTodo,
-  DeleteTodo,
-  CompleteTodo,
-}) {
+export default function TodoItem({ todo }) {
+  const dispatch = useDispatch();
   const { id, title, text, completed, dates = [] } = todo;
   const [isOpen, setIsOpen] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
@@ -45,7 +45,7 @@ export default function TodoItem({
       dates: newDates,
     };
 
-    UpdateTodo(id, updatedTodo);
+    dispatch(updateTodo(id, updatedTodo));
     CloseModal();
   };
 
@@ -79,14 +79,14 @@ export default function TodoItem({
         </button>
         <button
           className={styles.deleteButton}
-          onClick={() => DeleteTodo(id)}
+          onClick={() => dispatch(deleteTodo(id))}
           title="Delete task"
         >
           <FiTrash size={28} />
         </button>
         <button
           className={styles.completedButton}
-          onClick={() => CompleteTodo(id)}
+          onClick={() => dispatch(completeTodo(id))}
           title="Task completed!"
         >
           <FiCheckSquare size={28} />

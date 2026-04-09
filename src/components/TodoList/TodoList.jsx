@@ -1,21 +1,12 @@
+import { useSelector } from "react-redux";
 import { TodoItem } from "@/components";
 import styles from "@/components/TodoList/TodoList.module.css";
 
-export default function TodoList({
-  todos = [],
-  UpdateTodo,
-  DeleteTodo,
-  CompleteTodo,
-}) {
-  const elements = todos.map((todo) => (
-    <TodoItem
-      key={todo.id}
-      todo={todo}
-      UpdateTodo={UpdateTodo}
-      DeleteTodo={DeleteTodo}
-      CompleteTodo={CompleteTodo}
-    />
-  ));
+export default function TodoList() {
+  const todos = useSelector((state) => state.todos.todos);
+  console.log("todos", todos);
+
+  const elements = todos.map((todo) => <TodoItem key={todo.id} todo={todo} />);
 
   return (
     <div className={styles.list}>

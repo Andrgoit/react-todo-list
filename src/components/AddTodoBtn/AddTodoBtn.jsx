@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addTodo } from "@/redux/todosSlice";
 import { Modal } from "@/components";
 
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
@@ -7,7 +9,8 @@ import "react-calendar/dist/Calendar.css";
 
 import styles from "@/components/AddTodoBtn/AddTodoBtn.module.css";
 
-export default function AddTodoBtn({ AddTodo }) {
+export default function AddTodoBtn() {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
@@ -36,7 +39,7 @@ export default function AddTodoBtn({ AddTodo }) {
     e.preventDefault();
     CloseModal();
     ResetForm();
-    AddTodo({ id, title, text, completed: false, dates });
+    dispatch(addTodo({ id, title, text, completed: false, dates }));
   };
 
   return (
