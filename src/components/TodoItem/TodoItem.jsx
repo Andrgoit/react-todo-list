@@ -45,7 +45,7 @@ export default function TodoItem({ todo }) {
       dates: newDates,
     };
 
-    dispatch(updateTodo(id, updatedTodo));
+    dispatch(updateTodo(updatedTodo));
     CloseModal();
   };
 

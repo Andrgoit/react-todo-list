@@ -1,24 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
-const initialState = {
-  todos: [],
-};
+const initialState = [];
 
 export const todosSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
     addTodo: (state, { payload }) => {
-      console.log("payload", payload);
+      toast.success("The task added!");
+      state.push(payload);
     },
     deleteTodo: (state, { payload }) => {
-      console.log("payload", payload);
+      toast.info("The task deleted!");
+      return state.filter((todo) => todo.id !== payload);
     },
     updateTodo: (state, { payload }) => {
-      console.log("payload", payload);
+      toast.info("The task updated!");
+      const id = payload.id;
+      const newTodo = payload;
+      return state.map((todo) => (todo.id === id ? newTodo : todo));
     },
     completeTodo: (state, { payload }) => {
-      console.log("payload", payload);
+      return state.map((todo) =>
+        todo.id === payload ? { ...todo, completed: !todo.completed } : todo,
+      );
     },
   },
 });

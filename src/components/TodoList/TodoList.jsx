@@ -3,8 +3,7 @@ import { TodoItem } from "@/components";
 import styles from "@/components/TodoList/TodoList.module.css";
 
 export default function TodoList() {
-  const todos = useSelector((state) => state.todos.todos);
-  console.log("todos", todos);
+  const todos = useSelector((state) => state.todos);
 
   const elements = todos.map((todo) => <TodoItem key={todo.id} todo={todo} />);
 
